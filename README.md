@@ -67,7 +67,7 @@ module.exports = appInfo => {
 ``` javascript
 // somewhere you may get app instance, like controller, service …
 app.acm.addChangeListener('A meanful name, like "notice"', function(newData, oldData) {
-  noticeSomeApi(newDate);
+  noticeSomeApi(newData);
 });
 ```
 
