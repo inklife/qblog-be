@@ -49,13 +49,13 @@ module.exports = appInfo => {
 
 ## 使用场景
 
-- 根据阿里云ACM`自动化`**应用配置**
+- 根据[阿里云ACM](https://acm.console.aliyun.com)`自动化`**应用配置**
 
 ### 说明
 
-此插件将您的阿里云ACM应用配置挂载到`app.acm.${dataId}`对象上，并对`JSON`和`Properties`两种数据格式做了自动解析，对于不支持自动解析挂载的数据格式（如`XML`等），您依然可以通过`app.acm.${dataId}.__raw`获取源文本。
+此插件将您的阿里云ACM应用配置挂载到`app.acm.${dataId}`对象上，并对`JSON`和`Properties`两种数据格式做了自动解析，对于不支持自动解析挂载的数据格式（如`XML`等），您依然可以通过`app.acm.${dataId}.__raw`获取源文本。
 
-**acm保留方法**
+**acm保留方法**
 
 您不能使用以下名称作为您的`${dataId}`：
 
@@ -66,7 +66,7 @@ module.exports = appInfo => {
 例：
 ``` javascript
 // somewhere you may get app instance, like controller, service …
-app.acm.addChangeListener('A meanful name, like "notice"', function(newDate, oldData) {
+app.acm.addChangeListener('A meanful name, like "notice"', function(newData, oldData) {
   noticeSomeApi(newDate);
 });
 ```
@@ -78,6 +78,10 @@ app.acm.addChangeListener('A meanful name, like "notice"', function(newDate, old
 ## 详细配置
 
 请到 [config/config.default.js](config/config.default.js) 查看详细配置项说明。
+
+## Example
+
+[egg-acm-example](https://github.com/shuang6/egg-acm-example)
 
 ## 提问交流
 
