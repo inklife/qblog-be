@@ -6,11 +6,15 @@
  * @property {String} SOME_KEY - some description
  */
 exports.acm = {
-  endpoint: 'acm.aliyun.com',
-  namespace: '',
-  accessKey: '',
-  secretKey: '',
-  requestTimeout: 6000,
-  dataId: '',
-  group: '',
+  default: {
+    endpoint: 'acm.aliyun.com',
+    namespace: '',
+    accessKey: '',
+    secretKey: '',
+    requestTimeout: 6000,
+    dataId: '',
+    group: '',
+  },
+  app: true,
+  agent: false,
 };
