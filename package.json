@@ -1,6 +1,6 @@
 {
   "name": "egg-acm",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "An egg plugin for aliyun acm.",
   "eggPlugin": {
     "name": "acm"
@@ -56,7 +56,5 @@
   },
   "homepage": "https://github.com/shuang6/egg-acm#readme",
   "author": "shuang6",
-  "license": "MIT",
-  "_from": "egg-acm@1.0.3",
-  "_resolved": "http://registry.npm.taobao.org/egg-acm/download/egg-acm-1.0.3.tgz"
+  "license": "MIT"
 }
