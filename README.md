@@ -1,6 +1,6 @@
 # egg-acm
 
-An [egg.js](https://eggjs.org) plugin for `AlibabaCloud` ACM(short for Application Configuration Management).
+An [egg.js](https://eggjs.org) plugin for `AlibabaCloud` [ACM](https://acm.console.aliyun.com)(short for Application Configuration Management).
 
 AlibabaCloud ACM [Learning path](https://help.aliyun.com/learn/learningpath/acm.html?spm=5176.acm.ConfigurationManagement.4.2bc54a9bL1YT6m).
 
@@ -36,7 +36,7 @@ module.exports = appInfo => {
       accessKey: '${accessKey}', // check it at aliyun key
       secretKey: '${secretKey}', // check it at aliyun key
       dataId: '${dataId}',
-      group: 'DEFAULT_GROUP',
+      group: 'DEFAULT_GROUP', // If it is the default, it can be omitted.
     },
     // Is it mounted to app. Default opening.
     app: true,
@@ -55,6 +55,61 @@ module.exports = appInfo => {
 ### Instructions
 
 This plugin mounts your ACM data to `app.acm.${dataId}`, and two data formats(`JSON` and `Properties`) are automatically parsed. For unsupported data formats(like `XML` etc), you can still get source text through `app.acm.${dataId}.__raw`.
+
+Example:
+
+Suppose your configuration in the background of Aliyun is like this.
+
+- Data ID: `test`
+- Group: `DEFAULT_GROUP`
+- Configuration Format: `JSON`
+- Configuration content
+
+```json
+{
+    "magical": 123,
+    "hi": [ "0", "world" ]
+}
+```
+
+Now you may modify your Egg.js App config file like this.
+
+```js
+// {app_root}/config/config.default.js
+config.acm = {
+  // single client
+  client: {
+    endpoint: 'acm.aliyun.com', // check it at acm console
+    namespace: '${namespace}', // check it at acm console
+    accessKey: '${accessKey}', // check it at aliyun key
+    secretKey: '${secretKey}', // check it at aliyun key
+    dataId: 'test',
+    group: 'DEFAULT_GROUP',
+  },
+};
+```
+
+Then you could get your ACM data by `app.acm.test` (Note that in this case, Data ID is `test`).
+
+A very simple example is as follows.
+
+```js
+// {app_root}/app/controller/home.js
+'use strict';
+
+const Controller = require('egg').Controller;
+
+class HomeController extends Controller {
+  async index() {
+    // "hi, 123".
+    this.ctx.body = 'hi, ' + this.app.acm.test.magical;
+  }
+}
+
+module.exports = HomeController;
+```
+
+Open the browser and you will get "hi, 123". Modify your ACM data in the console of Aliyun, for instance, giving **"magical"** a new value. Refresh your browser. What will happen? No mistake, it's automatic.
 
 **Reserved Key Name**
 

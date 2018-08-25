@@ -13,7 +13,7 @@ exports.acm = {
     secretKey: '',
     requestTimeout: 6000,
     dataId: '',
-    group: '',
+    group: 'DEFAULT_GROUP',
   },
   app: true,
   agent: false,

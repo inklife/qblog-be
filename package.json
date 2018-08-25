@@ -1,12 +1,15 @@
 {
   "name": "egg-acm",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "An egg plugin for aliyun acm.",
   "eggPlugin": {
     "name": "acm"
   },
   "keywords": [
+    "acm",
     "egg",
+    "eggAcm",
+    "egg-acm",
     "eggPlugin",
     "egg-plugin"
   ],
