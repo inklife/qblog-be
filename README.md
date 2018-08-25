@@ -1,54 +1,46 @@
 # egg-acm
 
-<!--
-Description here.
--->
+An [egg.js](https://eggjs.org) plugin for `AlibabaCloud` ACM(short for Application Configuration Management).
 
-## 依赖说明
+AlibabaCloud ACM [Learning path](https://help.aliyun.com/learn/learningpath/acm.html?spm=5176.acm.ConfigurationManagement.4.2bc54a9bL1YT6m).
 
-### 依赖的 egg 版本
+## Install
 
-egg-acm 版本 | egg 1.x
---- | ---
-1.x | 😁
-0.x | ❌
+```bash
+$ npm i egg-acm --save
+```
 
-<!--
-
-如果有依赖其它插件，请在这里特别说明。如
-
-- security
-- multipart
-
--->
-
-## 开启插件
-
-您可能需要先获取[阿里云Key](https://ram.console.aliyun.com)
+## Usage
 
 ```js
-// config/plugin.js
+// {app_root}/config/plugin.js
 exports.acm = {
   enable: true,
   package: 'egg-acm',
 };
-// config/config.${EGG_SERVER_ENV}.js
+```
+
+## Configuration
+
+You might need to get [Aliyun Secret Key](https://ram.console.aliyun.com) first.
+
+```js
+// {app_root}/config/config.${EGG_SERVER_ENV}.js
 module.exports = appInfo => {
   const config = exports = {};
-  // 数据库配置
   config.acm = {
-    // 单数据库信息配置
+    // config of single client
     client: {
-      endpoint: 'acm.aliyun.com', // acm 控制台查看
-      namespace: '${namespace}', // acm 控制台查看
-      accessKey: '${accessKey}', // 阿里云Key 查看
-      secretKey: '${secretKey}', // 阿里云Key 查看
+      endpoint: 'acm.aliyun.com', // check it at acm console
+      namespace: '${namespace}', // check it at acm console
+      accessKey: '${accessKey}', // check it at aliyun key
+      secretKey: '${secretKey}', // check it at aliyun key
       dataId: '${dataId}',
       group: 'DEFAULT_GROUP',
     },
-    // 是否加载到 app 上，默认开启
+    // Is it mounted to app. Default opening.
     app: true,
-    // 是否加载到 agent 上，关闭
+    // Is it mounted to agent. Keep closed.
     agent: false,
   };
 
@@ -56,25 +48,25 @@ module.exports = appInfo => {
 };
 ```
 
-## 使用场景
+## When to use
 
-- 根据[阿里云ACM](https://acm.console.aliyun.com)`自动化`**应用配置**
+- Use [Aliyun ACM](https://acm.console.aliyun.com) to automate **Application Configuration**.
 
-### 说明
+### Instructions
 
-此插件将您的阿里云ACM应用配置挂载到`app.acm.${dataId}`对象上，并对`JSON`和`Properties`两种数据格式做了自动解析，对于不支持自动解析挂载的数据格式（如`XML`等），您依然可以通过`app.acm.${dataId}.__raw`获取源文本。
+This plugin mounts your ACM data to `app.acm.${dataId}`, and two data formats(`JSON` and `Properties`) are automatically parsed. For unsupported data formats(like `XML` etc), you can still get source text through `app.acm.${dataId}.__raw`.
 
-**acm保留键值**
+**Reserved Key Name**
 
-您不能使用以下名称作为您的`${dataId}`：
+It is not recommended to use the following name as `${dataId}` name.
 
 * addChangeListener
 
-您可以在您的egg.js应用中添加变动监听，当阿里云ACM配置变动时，您可以获得通知。
+You can add change monitoring in your egg.js application, and you will be notified when the Aliyun ACM configuration changes.
 
-例：
+Example:
 ``` javascript
-// somewhere you may get app instance, like controller, service …
+// somewhere you may get egg.js app instance, like controller, service …
 app.acm.addChangeListener('A meanful name, like "notice"', function(newData, oldData) {
   noticeSomeApi(newData);
 });
@@ -82,21 +74,17 @@ app.acm.addChangeListener('A meanful name, like "notice"', function(newData, old
 
 * removeChangeListener
 
-移除`${name_description}`的监听。
+Remove `${name_description}` monitor.
 
 * $data
-
-## 详细配置
-
-请到 [config/config.default.js](config/config.default.js) 查看详细配置项说明。
 
 ## Example
 
 [egg-acm-example](https://github.com/shuang6/egg-acm-example)
 
-## 提问交流
+## Questions & Suggestions
 
-请到 [egg-acm issues](https://github.com/shuang6/egg-acm/issues) 交流。
+Please open an issue [here](https://github.com/shuang6/egg-acm/issues).
 
 ## License
 
