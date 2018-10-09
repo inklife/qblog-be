@@ -54,7 +54,7 @@ module.exports = appInfo => {
 
 ### Instructions
 
-This plugin mounts your ACM data to `app.acm.${dataId}`, and two data formats(`JSON` and `Properties`) are automatically parsed. For unsupported data formats(like `XML` etc), you can still get source text through `app.acm.${dataId}.__raw`.
+This plugin mounts your ACM data to `app.acm.${dataId}`, and two data formats(`JSON` and `Properties`) are automatically parsed. For unsupported data formats(like `XML` etc), you can still get source text through `app.acm.${dataId}.__raw`.
 
 Example:
 
