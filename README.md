@@ -133,9 +133,17 @@ Remove `${name_description}` monitor.
 
 * $data
 
+* $init
+
 ## Example
 
-[egg-acm-example](https://github.com/shuang6/egg-acm-example)
+[acm-sdk-egg-demo](https://github.com/shuang6/acm-sdk-egg-demo)
+
+## Todolist
+
+- Multi configuration optimization
+- Code style optimization
+- Important updates
 
 ## Questions & Suggestions
 
