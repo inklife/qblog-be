@@ -1,7 +1,7 @@
 {
   "name": "egg-acm",
-  "version": "1.0.7",
-  "description": "An egg plugin for aliyun acm.",
+  "version": "2.0.0",
+  "description": "An egg.js plugin for aliyun acm",
   "eggPlugin": {
     "name": "acm"
   },
@@ -14,8 +14,7 @@
     "egg-plugin"
   ],
   "dependencies": {
-    "acm-client": "^2.0.0",
-    "co": "^4.6.0",
+    "acm-client": "^3.0.0",
     "properties-parser": "^0.3.1"
   },
   "devDependencies": {
@@ -26,7 +25,7 @@
     "egg-ci": "^1.8.0",
     "egg-mock": "^3.13.0",
     "eslint": "^4.11.0",
-    "eslint-config-egg": "^5.1.0",
+    "eslint-config-egg": "^5.1.1",
     "webstorm-disable-index": "^1.2.0"
   },
   "engines": {

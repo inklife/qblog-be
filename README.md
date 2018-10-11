@@ -1,3 +1,13 @@
+# Upgrade to 2.0
+
+- The original ACM-client API was retained.
+- Remove unfriendly and aggressive API expansion.
+
+You might need to browse the official packages first.
+
+- [egg-acm](https://github.com/eggjs/egg-acm)
+- [acm-sdk-nodejs](https://github.com/acm-group/acm-sdk-nodejs)
+
 # egg-acm
 
 An [egg.js](https://eggjs.org) plugin for `AlibabaCloud` [ACM](https://acm.console.aliyun.com)(short for Application Configuration Management).
@@ -33,14 +43,11 @@ module.exports = appInfo => {
     client: {
       endpoint: 'acm.aliyun.com', // check it at acm console
       namespace: '${namespace}', // check it at acm console
-      accessKey: '${accessKey}', // check it at aliyun key
-      secretKey: '${secretKey}', // check it at aliyun key
-      dataId: '${dataId}',
-      group: 'DEFAULT_GROUP', // If it is the default, it can be omitted.
+      accessKey: '${accessKey}', // check it at acm console
+      secretKey: '${secretKey}', // check it at acm console
+      requestTimeout: 6000,
     },
-    // Is it mounted to app. Default opening.
     app: true,
-    // Is it mounted to agent. Keep closed.
     agent: false,
   };
 
@@ -48,13 +55,19 @@ module.exports = appInfo => {
 };
 ```
 
-## When to use
-
-- Use [Aliyun ACM](https://acm.console.aliyun.com) to automate **Application Configuration**.
-
 ### Instructions
 
-This plugin mounts your ACM data to `app.acm.${dataId}`, and two data formats(`JSON` and `Properties`) are automatically parsed. For unsupported data formats(like `XML` etc), you can still get source text through `app.acm.${dataId}.__raw`.
+You could access the ACM-client instance via `app.acm`.
+
+Reading [ACM-client document](https://github.com/acm-group/acm-sdk-nodejs) in the first place will be helpful. This package retains its original API.
+
+Compared with the original API, this package does some expansion.
+
+#### Get configuration
+
+- `async function getConfig(dataId, group, format)`
+
+The `format` could be `JSON` and `Properties`, this function will return parsed javascript object. If the format is not supported or left blank, it will return to plain text like the original API.
 
 Example:
 
@@ -83,13 +96,9 @@ config.acm = {
     namespace: '${namespace}', // check it at acm console
     accessKey: '${accessKey}', // check it at aliyun key
     secretKey: '${secretKey}', // check it at aliyun key
-    dataId: 'test',
-    group: 'DEFAULT_GROUP',
   },
 };
 ```
-
-Then you could get your ACM data by `app.acm.test` (Note that in this case, Data ID is `test`).
 
 A very simple example is as follows.
 
@@ -102,38 +111,13 @@ const Controller = require('egg').Controller;
 class HomeController extends Controller {
   async index() {
     // "hi, 123".
-    this.ctx.body = 'hi, ' + this.app.acm.test.magical;
+    const { magical } = await this.app.acm.getConfig('test', 'DEFAULT_GROUP', 'json');
+    this.ctx.body = 'hi, ' + magical;
   }
 }
 
 module.exports = HomeController;
 ```
-
-Open the browser and you will get "hi, 123". Modify your ACM data in the console of Aliyun, for instance, giving **"magical"** a new value. Refresh your browser. What will happen? No mistake, it's automatic.
-
-**Reserved Key Name**
-
-It is not recommended to use the following name as `${dataId}` name.
-
-* addChangeListener
-
-You can add change monitoring in your egg.js application, and you will be notified when the Aliyun ACM configuration changes.
-
-Example:
-``` javascript
-// somewhere you may get egg.js app instance, like controller, service …
-app.acm.addChangeListener('A meanful name, like "notice"', function(newData, oldData) {
-  noticeSomeApi(newData);
-});
-```
-
-* removeChangeListener
-
-Remove `${name_description}` monitor.
-
-* $data
-
-* $init
 
 ## Example
 
@@ -141,9 +125,8 @@ Remove `${name_description}` monitor.
 
 ## Todolist
 
-- Multi configuration optimization
+- Data cache
 - Code style optimization
-- Important updates
 
 ## Questions & Suggestions
 

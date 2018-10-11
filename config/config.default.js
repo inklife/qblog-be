@@ -12,8 +12,6 @@ exports.acm = {
     accessKey: '',
     secretKey: '',
     requestTimeout: 6000,
-    dataId: '',
-    group: 'DEFAULT_GROUP',
   },
   app: true,
   agent: false,
